@@ -6,6 +6,7 @@ import com.wpate.four.api.contract.SessionService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Lock;
 import javax.ejb.Remote;
 import javax.ejb.Stateful;
 
@@ -24,6 +25,7 @@ public class SessionServiceImpl implements SessionService {
     @EJB
     private SeatAvalibilityService seatAvalibilityService;
 
+    @Lock
     @Override
     public boolean buyTicketForSeat(long id) {
         int price = seatService.getSeatPrice(id);
@@ -37,6 +39,7 @@ public class SessionServiceImpl implements SessionService {
         throw new RuntimeException("Something went wrong during transaction");
     }
 
+    @Lock
     @Override
     public int getBalance() {
         return balance;
