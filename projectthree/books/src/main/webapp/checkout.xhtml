@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</h:head>
+<h:body>
+    Selected books
+    <h:dataTable value="#{BookLib.selectedBooks}" var="book"
+                         styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+        <h:column>
+            <f:facet name="header">Title</f:facet>
+            <h:outputText value="#{book.title}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Author</f:facet>
+            <h:outputText value="#{book.author} " />
+        </h:column>
+        <h:column>
+            <f:facet name="header">Price</f:facet>
+            <h:outputText value="#{book.price} " />
+        </h:column>
+        <h:column>
+            <f:facet name="header">Currency</f:facet>
+            <h:outputText value="#{book.currency} " />
+        </h:column>
+    </h:dataTable>
+    Sum:  <h:outputText value="#{BookLib.sum}" />  <h:outputText value="#{BookLib.finalCurrency}" />
+</h:body>
+
+</html>

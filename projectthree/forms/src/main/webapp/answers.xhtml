@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</h:head>
+<h:body>
+    <h3>Your answers</h3>
+    <h:panelGroup id="answers">
+        Name: <h:outputText value="#{FormRoot.name}" styleClass="answers"/> <br/>
+        Email: <h:outputText value="#{FormRoot.email}" styleClass="answers"/> <br/>
+        Age: <h:outputText value="#{FormRoot.age}" styleClass="answers"/> <br/>
+        Sex: <h:outputText value="#{FormRoot.sex}" styleClass="answers"/> <br/>
+        Education: <h:outputText value="#{FormRoot.education}" styleClass="answers" /> <br/>
+        Height: <h:outputText value="#{FormRoot.height}" styleClass="answers"/> <br/>
+
+        <h:panelGroup rendered="#{FormRoot.sex eq 'female'}">
+            Breast size: <h:outputText value="#{FormRoot.breastSize}" styleClass="answers"/> <br/>
+            Bra cup size: <h:outputText value="#{FormRoot.braCupSize}" styleClass="answers"/> <br/>
+            Waist: <h:outputText value="#{FormRoot.waist}" styleClass="answers"/> <br/>
+            Hips: <h:outputText value="#{FormRoot.hips}" styleClass="answers"/> <br/>
+
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{FormRoot.sex eq 'male'}">
+            Chest: <h:outputText value="#{FormRoot.chest}" styleClass="answers" /> <br/>
+            Waist size: <h:outputText value="#{FormRoot.waistSize}" styleClass="answers"/> <br/>
+        </h:panelGroup>
+
+        How much are you able to spend on clotesh monthly : <h:outputText value="#{AdditionalForm.budget}" styleClass="answers"/> <br/>
+        How often do you make cloth shopping : <h:outputText value="#{AdditionalForm.frequency}" styleClass="answers"/> <br/>
+        What colours do you prefer : <h:outputText value="#{AdditionalForm.colours}" styleClass="answers"/> <br/>
+        What kind of clothes do you buy most often : <h:outputText value="#{AdditionalForm.favourites}" styleClass="answers"/> <br/>
+    </h:panelGroup>
+</h:body>
+
+
+</html>

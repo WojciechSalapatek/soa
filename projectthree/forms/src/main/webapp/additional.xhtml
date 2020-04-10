@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head> </h:head>
+<h:body>
+    <h3>Add your data</h3>
+    <h:form id="data">
+        <h:panelGrid id="commonData">
+            How much are you able to spend on clotesh monthly :
+            <h:selectOneMenu id="budget" value="#{AdditionalForm.budget}">
+                <f:selectItem itemValue="to 100 zl" itemLabel="to 100 zl" />
+                <f:selectItem itemValue="100-500zl" itemLabel="100-500zl" />
+                <f:selectItem itemValue="500-1000zl" itemLabel="500-1000zl" />
+                <f:selectItem itemValue="more than 1000zl" itemLabel="more than 1000zl" />
+            </h:selectOneMenu>
+
+            How often do you make cloth shopping :
+            <h:selectOneMenu id="frequency" value="#{AdditionalForm.frequency}">
+                <f:selectItem itemValue="Every day" itemLabel="Every day" />
+                <f:selectItem itemValue="Once a week" itemLabel="Once a week" />
+                <f:selectItem itemValue="Once a month" itemLabel="Once a month" />
+                <f:selectItem itemValue="Few times in a year" itemLabel="Few times in a year" />
+            </h:selectOneMenu>
+
+            What colours do you prefer :
+            <h:selectOneMenu id="colors" value="#{AdditionalForm.colours}">
+                <f:selectItem itemValue="Shiny colours" itemLabel="Shiny colours" />
+                <f:selectItem itemValue="Toned grey" itemLabel="Toned grey" />
+                <f:selectItem itemValue="Black and white" itemLabel="Black and white" />
+                <f:selectItem itemValue="Black" itemLabel="Black" />
+            </h:selectOneMenu>
+
+        </h:panelGrid>
+
+        <h:panelGrid id="sexSpecific">
+            What kind of clothes do you buy most often?
+            <h:selectOneMenu id="femFavs" value="#{AdditionalForm.favourites}" rendered="#{FormRoot.sex eq 'female'}">
+                <f:selectItem itemValue="garson" itemLabel="garson" />
+                <f:selectItem itemValue="tops" itemLabel="tops" />
+                <f:selectItem itemValue="pants" itemLabel="pants" />
+                <f:selectItem itemValue="skirts" itemLabel="skirts" />
+            </h:selectOneMenu>
+
+            <h:selectOneMenu id="maleFavs" value="#{AdditionalForm.favourites}" rendered="#{FormRoot.sex eq 'male'}">
+                <f:selectItem itemValue="trousers" itemLabel="trousers" />
+                <f:selectItem itemValue="shorts" itemLabel="shorts" />
+                <f:selectItem itemValue="suits" itemLabel="suits" />
+                <f:selectItem itemValue="shirts" itemLabel="shirts" />
+                <f:selectItem itemValue="ties" itemLabel="ties" />
+            </h:selectOneMenu>
+        </h:panelGrid>
+
+        <h:commandButton value="accept" action="answers"/>
+    </h:form>
+</h:body>
+
+
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head> </h:head>
+<h:body>
+    <h3>Add your data</h3>
+    <h:form id="data">
+        <h:panelGrid id="commonData">
+            Name:
+            <h:inputText id="name" value="#{FormRoot.name}" required="true" requiredMessage="Name is mandatory"/>
+            <h:message id="mName" for="name" style="color:red"/>
+
+            Email:
+            <h:inputText id="email" value="#{FormRoot.email}" validator="#{FormRoot.validateEmail}"/>
+            <h:message id="mEmail" for="email" style="color:red"/>
+
+            Age:
+            <h:inputText id="age" value="#{FormRoot.age}">
+                <f:validateDoubleRange minimum = "10" maximum = "100"/>
+            </h:inputText>
+            <h:message id="mAge" for="age" style="color:red"/>
+
+            Sex:
+            <h:selectOneMenu id="sex" value="#{FormRoot.sex}">
+                <f:selectItem itemValue="male" itemLabel="male"/>
+                <f:selectItem itemValue="female" itemLabel="female" />
+                <f:ajax event="change" execute="@this" render="sexSpecific" />
+            </h:selectOneMenu>
+
+            Education:
+            <h:inputText id="edu" value="#{FormRoot.education}"/>
+
+            Height:
+            <h:inputText id="maleHeight" value="#{FormRoot.height}" rendered="#{FormRoot.sex eq 'male'}" validator="#{FormRoot.validateMaleHeight}"/>
+            <h:inputText id="femaleHeight" value="#{FormRoot.height}" rendered="#{FormRoot.sex eq 'female'}" validator="#{FormRoot.validateFemaleHeight}"/>
+            <h:message id="mMHeight" for="maleHeight" style="color:red"/>
+            <h:message id="mFHeight" for="femaleHeight" style="color:red"/>
+
+        </h:panelGrid>
+
+        <h:panelGrid id="sexSpecific">
+            <h:outputText value="Breast size:" rendered="#{FormRoot.sex eq 'female'}"/>
+            <h:inputText value="#{FormRoot.breastSize}" rendered="#{FormRoot.sex eq 'female'}"/>
+
+            <h:outputText value="Bra cup size:" rendered="#{FormRoot.sex eq 'female'}"/>
+            <h:inputText value="#{FormRoot.braCupSize}" rendered="#{FormRoot.sex eq 'female'}"/>
+
+            <h:outputText value="Waist:" rendered="#{FormRoot.sex eq 'female'}"/>
+            <h:inputText value="#{FormRoot.waist}" rendered="#{FormRoot.sex eq 'female'}"/>
+
+            <h:outputText value="Hips:" rendered="#{FormRoot.sex eq 'female'}"/>
+            <h:inputText value="#{FormRoot.hips}" rendered="#{FormRoot.sex eq 'female'}"/>
+
+            <h:outputText value="Chest:" rendered="#{FormRoot.sex eq 'male'}"/>
+            <h:inputText value="#{FormRoot.chest}" rendered="#{FormRoot.sex eq 'male'}"/>
+
+            <h:outputText value="Waist size:" rendered="#{FormRoot.sex eq 'male'}"/>
+            <h:inputText value="#{FormRoot.waistSize}" rendered="#{FormRoot.sex eq 'male'}"/>
+        </h:panelGrid>
+
+        <h:commandButton value="accept" action="additional"/>
+    </h:form>
+</h:body>
+
+
+</html>
