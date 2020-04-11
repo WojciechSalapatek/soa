@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</h:head>
+<h:body>
+    <h3>Update book</h3>
+    <h:form>
+        <h:dataTable styleClass="table"
+                     headerClass="table-header"
+                     rowClasses="table-odd-row,table-even-row">
+            <h:column>
+                <f:facet name="header">
+                    <h:inputHidden value="#{UpdateForm.updateId}"/>
+                </f:facet>
+                <f:facet name="header">Title</f:facet>
+                <f:facet name="header">
+                    <h:inputText id="title" value="#{UpdateForm.updateTitle}" required="true" requiredMessage="Title is mandatory"/>
+                    <h:message for="title" style="color:red"/>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Author</f:facet>
+                <f:facet name="header">
+                    <h:inputText id="author" value="#{UpdateForm.updateAuthor}" required="true" requiredMessage="Author is mandatory"/>
+                    <h:message for="author" style="color:red"/>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">ISBN</f:facet>
+                <f:facet name="header">
+                    <h:inputText name="isbn" value="#{UpdateForm.updateIsbn}" required="true" requiredMessage="ISBN is mandatory"/>
+                    <h:message for="isbn" style="color:red"/>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Release year</f:facet>
+                <f:facet name="header">
+                    <h:inputText id="year" value="#{UpdateForm.updateYear}" required="true" requiredMessage="Year is mandatory">
+                        <f:validateDoubleRange minimum = "500" maximum = "2020"/>
+                    </h:inputText>
+                    <h:message for="year" style="color:red"/>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Price</f:facet>
+                <f:facet name="header">
+                    <h:inputText id="price" value="#{UpdateForm.updatePrice}" required="true" requiredMessage="Price is mandatory">
+                        <f:validateDoubleRange minimum = "1" maximum = "500"/>
+                    </h:inputText>
+                    <h:message for="price" style="color:red"/>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Currency</f:facet>
+                <f:facet name="header">
+                    <h:selectOneMenu value="#{UpdateForm.updateCurrency}">
+                        <f:selectItem itemLabel="PLN" itemValue="PLN"/>
+                        <f:selectItem itemLabel="EUR" itemValue="EUR"/>
+                        <f:selectItem itemLabel="USD" itemValue="USD"/>
+                    </h:selectOneMenu>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:commandButton value="Update" action="#{UpdateForm.updateBook}" style="color: orange;"/>
+                </f:facet>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
+</h:body>
+
+</html>
