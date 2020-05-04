@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</h:head>
+<h:body onunload="exitFunc();">
+
+    <h3>Borrow the Book</h3>
+    <h:form>
+        <h:dataTable styleClass="table"
+                     headerClass="table-header"
+                     rowClasses="table-odd-row,table-even-row">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{NewBorrowingView.book.title}"/>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{NewBorrowingView.book.author.name}"/>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{NewBorrowingView.book.isbn}"/>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{NewBorrowingView.book.category}"/>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Select Reader: </f:facet>
+                <f:facet name="header">
+                    <h:selectOneMenu id="breader" value="#{NewBorrowingView.readerId}" required="true"
+                                     requiredMessage="Reader is mandatory">
+                        <c:forEach items="#{ReaderView.allReaders}" var="reader">
+                            <f:selectItem itemValue="#{reader.id}" itemLabel="#{reader.name} #{reader.surname}"/>
+                        </c:forEach>
+                    </h:selectOneMenu>
+                </f:facet>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:commandButton value="Borrow" action="#{NewBorrowingView.borrow}" style="color: green;"/>
+                </f:facet>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
+    <h:form id="exitForm">
+        <p:remoteCommand name="exitFunc" actionListener="#{NewBorrowingView.release}" />
+    </h:form>
+
+</h:body>
+
+</html>

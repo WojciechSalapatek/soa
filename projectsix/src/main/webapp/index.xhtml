@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</h:head>
+<h:body>
+    <div class="section-border">
+        <h3>Recorded Readers</h3>
+        <h:form>
+            <h:dataTable value="#{ReaderView.allReaders}" var="reader"
+                         styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{reader.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Forname</f:facet>
+                    <h:outputText value="#{reader.surname} "/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:commandButton value="delete" action="#{ReaderView.delete(reader.id)}" style="color: red;">
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandButton value="update" action="#{ReaderUpdateView.startUpdating(reader)}"
+                                     style="color: orange;">
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h3>Add a new Reader</h3>
+        <h:form>
+            <h:dataTable styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <f:facet name="header">
+                        <h:inputText id="rname" value="#{ReaderView.newName}" required="true"
+                                     requiredMessage="Name is mandatory"/>
+                        <h:message for="rname" style="color:red"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Surname</f:facet>
+                    <f:facet name="header">
+                        <h:inputText id="rsname" value="#{ReaderView.newSurname}" required="true"
+                                     requiredMessage="Surname is mandatory"/>
+                        <h:message for="rsname" style="color:red"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:commandButton value="Add" action="#{ReaderView.addReader}" style="color: green;"/>
+                    </f:facet>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+
+    <br/>
+
+    <div class="section-border">
+        <h3>Avaliable Authors</h3>
+        <h:form>
+            <h:dataTable value="#{AuthorView.allAuthors}" var="author"
+                         styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{author.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:commandButton value="delete" action="#{AuthorView.delete(author.id)}" style="color: red;">
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandButton value="update" action="#{AuthorUpdateView.startUpdating(author)}"
+                                     style="color: orange;">
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h3>Add a new Author</h3>
+        <h:form>
+            <h:dataTable styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <f:facet name="header">
+                        <h:inputText id="name" value="#{AuthorView.newName}" required="true"
+                                     requiredMessage="Name is mandatory"/>
+                        <h:message for="name" style="color:red"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:commandButton value="Add" action="#{AuthorView.addAuthor}" style="color: green;"/>
+                    </f:facet>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+    <br/>
+
+    <div class="section-border">
+        <h3>Recorded Books</h3>
+        <h:form>
+            <h:dataTable value="#{BookView.allBooks}" var="book"
+                         styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    <h:outputText value="#{book.title}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Author</f:facet>
+                    <h:outputText value="#{book.author.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">ISBN</f:facet>
+                    <h:outputText value="#{book.isbn}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Category</f:facet>
+                    <h:outputText value="#{book.category}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:commandButton rendered="#{not BookView.isBorrowed(book.id)}" value="delete"
+                                     action="#{BookView.delete(book.id)}" style="color: red;">
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandButton value="update" action="#{BookUpdateView.startUpdating(book)}"
+                                     style="color: orange;">
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Borrow</f:facet>
+                    <h:commandButton rendered="#{not BookView.isBorrowed(book.id)}" value="start borrowing"
+                                     action="#{NewBorrowingView.startBorrowing(book.id)}" style="color: darkblue;">
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <br/>
+        <h3>Add a new Book</h3>
+        <h:form>
+            <h:dataTable styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    <f:facet name="header">
+                        <h:inputText id="btitle" value="#{BookView.newTitle}" required="true"
+                                     requiredMessage="title is mandatory"/>
+                        <h:message for="btitle" style="color:red"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Author</f:facet>
+                    <f:facet name="header">
+                        <h:selectOneMenu id="bauthor" value="#{BookView.newAuthorId}">
+                            <c:forEach items="#{AuthorView.allAuthors}" var="author">
+                                <f:selectItem itemValue="#{author.id}" itemLabel="#{author.name}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">ISBN</f:facet>
+                    <f:facet name="header">
+                        <h:inputText id="bisbn" value="#{BookView.newIsbn}" required="true"
+                                     requiredMessage="ISBN is mandatory"/>
+                        <h:message for="bisbn" style="color:red"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Category</f:facet>
+                    <f:facet name="header">
+                        <h:selectOneMenu id="bcategory" value="#{BookView.newCategory}">
+                            <c:forEach items="#{BookView.allCategories}" var="category">
+                                <f:selectItem itemValue="#{category}" itemLabel="#{category.categoryName}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:commandButton value="Add" action="#{BookView.addBook}" style="color: green;"/>
+                    </f:facet>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+
+    <br/>
+
+    <div class="section-border">
+        <h3>Borrowings</h3>
+        <h:form>
+            <h:dataTable value="#{BorrowingView.allBorrowings}" var="borrowing"
+                         styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Borrowed Book</f:facet>
+                    <h:outputText value="#{borrowing.book.title}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Borrowing reader</f:facet>
+                    <h:outputText value="#{borrowing.reader.name} #{borrowing.reader.surname}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Borrow date</f:facet>
+                    <h:outputText value="#{borrowing.borrowDate}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Return Date</f:facet>
+                    <h:outputText value="#{borrowing.returnDate}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Mark as returned</f:facet>
+                    <h:commandButton rendered="#{borrowing.returnDate eq null}" value="Mark as returned"
+                                     action="#{BorrowingView.markAsReturned(borrowing.id)}" style="color: green;">
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+
+    <div class="section-border">
+        <h3>Catalog summary</h3>
+        <h:form>
+            <h:dataTable value="#{CatalogView.allEntries}" var="entry"
+                         styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Book Title</f:facet>
+                    <h:outputText value="#{entry.title}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Author</f:facet>
+                    <h:outputText value="#{entry.author}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">All</f:facet>
+                    <h:outputText value="#{entry.all}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Currently avaliable</f:facet>
+                    <h:outputText value="#{entry.available}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+
+    <div class="section-border">
+        <h3>Filter catalog</h3>
+        <h:form>
+            <h:dataTable styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row"
+                         id="searchFilter">
+                <h:column>
+                    <f:facet name="header">
+                        <h:selectBooleanCheckbox value="#{SearchView.hasTitle}">
+                            <f:ajax event="change" execute="@this" render="searchFilter"/>
+                        </h:selectBooleanCheckbox>
+                        Book Title:
+                    </f:facet>
+                    <f:facet name="header">
+                        <h:inputText rendered="#{SearchView.hasTitle}" value="#{SearchView.title}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:selectBooleanCheckbox value="#{SearchView.hasAuthorName}">
+                            <f:ajax event="change" execute="@this" render="searchFilter"/>
+                        </h:selectBooleanCheckbox>
+                        Author:
+                    </f:facet>
+                    <f:facet name="header">
+                        <h:inputText rendered="#{SearchView.hasAuthorName}" value="#{SearchView.authorName}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:selectBooleanCheckbox value="#{SearchView.hasIsbn}">
+                            <f:ajax event="change" execute="@this" render="searchFilter"/>
+                        </h:selectBooleanCheckbox>
+                        ISBN:
+                    </f:facet>
+                    <f:facet name="header">
+                        <h:inputText rendered="#{SearchView.hasIsbn}" value="#{SearchView.isbn}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:selectBooleanCheckbox value="#{SearchView.hasBookCategory}">
+                            <f:ajax event="change" execute="@this" render="searchFilter"/>
+                        </h:selectBooleanCheckbox>
+                        Category:
+                    </f:facet>
+                    <f:facet name="header">
+                        <h:inputText rendered="#{SearchView.hasBookCategory}" value="#{SearchView.bookCategory}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:selectBooleanCheckbox value="#{SearchView.hasReaderName}">
+                            <f:ajax event="change" execute="@this" render="searchFilter"/>
+                        </h:selectBooleanCheckbox>
+                        Borrower name:
+                    </f:facet>
+                    <f:facet name="header">
+                        <h:inputText rendered="#{SearchView.hasReaderName}" value="#{SearchView.readerName}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:selectBooleanCheckbox value="#{SearchView.hasReaderSurname}">
+                            <f:ajax event="change" execute="@this" render="searchFilter"/>
+                        </h:selectBooleanCheckbox>
+                        Borrower surname:
+                    </f:facet>
+                    <f:facet name="header">
+                        <h:inputText rendered="#{SearchView.hasReaderSurname}" value="#{SearchView.readerSurname}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:selectBooleanCheckbox value="#{SearchView.hasBorrowedFrom}">
+                            <f:ajax event="change" execute="@this" render="searchFilter"/>
+                        </h:selectBooleanCheckbox>
+                        Borrowed date range from:
+                    </f:facet>
+                    <f:facet name="header">
+                        <h:inputText rendered="#{SearchView.hasBorrowedFrom}" value="#{SearchView.borrowedFrom}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:selectBooleanCheckbox value="#{SearchView.hasBorrowedTo}">
+                            <f:ajax event="change" execute="@this" render="searchFilter"/>
+                        </h:selectBooleanCheckbox>
+                        Borrowed data range to:
+                    </f:facet>
+                    <f:facet name="header">
+                        <h:inputText rendered="#{SearchView.hasBorrowedTo}" value="#{SearchView.borrowedTo}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:commandButton value="Search" action="#{SearchView.search}" style="color: darkslateblue;"/>
+                    </f:facet>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        <h3>Search result</h3>
+        <h:dataTable value="#{SearchView.results}" var="result"
+                     styleClass="table"
+                     headerClass="table-header"
+                     rowClasses="table-odd-row,table-even-row">
+            <h:column>
+                <f:facet name="header">Title</f:facet>
+                <h:outputText value="#{result.book.title}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Author</f:facet>
+                <h:outputText value="#{result.author.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">ISBN</f:facet>
+                <h:outputText value="#{book.isbn}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Category</f:facet>
+                <h:outputText value="#{result.book.category}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Reader Name</f:facet>
+                <h:outputText rendered="#{not (result.reader eq null)}" value="#{result.reader.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Reader Surname</f:facet>
+                <h:outputText rendered="#{not (result.reader eq null)}" value="#{result.reader.surname}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Borrowing Date</f:facet>
+                <h:outputText rendered="#{not (result.book.borrowingEntry eq null)}" value="#{result.book.borrowingEntry.borrowDate}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Return Date</f:facet>
+                <h:outputText rendered="#{not (result.book.borrowingEntry eq null)}" value="#{result.book.borrowingEntry.returnDate}"/>
+            </h:column>
+        </h:dataTable>
+    </div>
+</h:body>
+
+</html>
