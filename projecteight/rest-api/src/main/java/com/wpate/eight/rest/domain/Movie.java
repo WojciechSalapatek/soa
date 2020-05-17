@@ -1,5 +1,6 @@
 package com.wpate.eight.rest.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +35,7 @@ public class Movie {
     @Column(name = "uri")
     private String uri;
 
-    @JsonbTransient
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteMovies")
     private List<Person> persons;
 

@@ -1,16 +1,13 @@
 package com.wpate.eight.rest.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.StreamingOutput;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class Person {
     @Column(name = "age")
     private int age;
 
-    @JsonbTransient
+    @JsonIgnore
     @Column(name = "image")
     private byte[] image;
 
@@ -68,7 +65,8 @@ public class Person {
         return ofNullable(nullableList).orElse(new ArrayList<>());
     }
 
-    public StreamingOutput getImageStreamingOutput(){
+    @JsonIgnore
+    public StreamingOutput getImageStreamingOutput() {
         return outputStream -> outputStream.write(image);
     }
 

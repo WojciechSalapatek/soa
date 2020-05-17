@@ -3,7 +3,6 @@ package com.wpate.eight.rest.controller;
 import com.wpate.eight.rest.domain.Movie;
 import com.wpate.eight.rest.repository.MovieRepository;
 import com.wpate.eight.rest.service.MovieService;
-//import io.swagger.annotations.Api;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -11,13 +10,19 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static com.wpate.eight.rest.controller.ResponseFactory.*;
 import static java.util.Objects.isNull;
 
+//import io.swagger.annotations.Api;
+
 //@Api
 @Path("")
 public class MovieController {
+
+
+    private Function<Long, String> uriProducer = (id) -> "http://localhost:8080/eight/api/movies/" + id;
 
 
     @Inject
@@ -39,6 +44,16 @@ public class MovieController {
     public Response deleteMovie(@PathParam("id") long id) {
         movieRepository.deleteById(id);
         return noContent();
+    }
+
+    @GET
+    @Path("/movies/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getMovie(@PathParam("id") long id) {
+        Optional<Movie> movie = movieRepository.findById(id);
+        if (movie.isEmpty()) return badRequest();
+        return ok(movie.get());
     }
 
     @PUT
@@ -67,6 +82,10 @@ public class MovieController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insertMovie(Movie movie) {
         movieRepository.insert(movie, 0);
+        if (isNull(movie.getUri())) {
+            movie.setUri(uriProducer.apply(movie.getId()));
+            movieRepository.update(movie);
+        }
         return created();
     }
 

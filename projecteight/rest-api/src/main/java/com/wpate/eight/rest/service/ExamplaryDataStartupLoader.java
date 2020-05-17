@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
@@ -33,6 +34,8 @@ public class ExamplaryDataStartupLoader {
     private MovieRepository movieRepository;
 
     private static final String AVATAR = "avatar.png";
+
+    private Function<Long, String> uriProducer = (id) -> "http://localhost:8080/eight/api/movies/" + id;
 
     @PostConstruct
     void setupExampleData() {
@@ -56,15 +59,21 @@ public class ExamplaryDataStartupLoader {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     private void setupSomeMovies() {
         Set<Long> personIds = personRepository.findAll().stream().map(Person::getId).collect(toSet());
-        movieRepository.insert(Movie.of(0, "Gwiezdny tron1", "", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
-        movieRepository.insert(Movie.of(0, "Gwiezdny tron2", "", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
-        movieRepository.insert(Movie.of(0, "Gwiezdny tron3", "", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
-        movieRepository.insert(Movie.of(0, "Gwiezdny tron4", "", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
-        movieRepository.insert(Movie.of(0, "Gwiezdny tron5", "", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
-        movieRepository.insert(Movie.of(0, "Gwiezdny tron6", "", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
-        movieRepository.insert(Movie.of(0, "Gwiezdny tron7", "", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
-        movieRepository.insert(Movie.of(0, "Gwiezdny tron8", "", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
-        movieRepository.insert(Movie.of(0, "Gwiezdny tron9", "", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        movieRepository.insert(Movie.of(0, "Gwiezdny tron1", "someUri", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        movieRepository.insert(Movie.of(0, "Gwiezdny tron2", "someUri", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        movieRepository.insert(Movie.of(0, "Gwiezdny tron3", "someUri", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        movieRepository.insert(Movie.of(0, "Gwiezdny tron4", "someUri", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        movieRepository.insert(Movie.of(0, "Gwiezdny tron5", "someUri", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        movieRepository.insert(Movie.of(0, "Gwiezdny tron6", "someUri", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        movieRepository.insert(Movie.of(0, "Gwiezdny tron7", "someUri", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        movieRepository.insert(Movie.of(0, "Gwiezdny tron8", "someUri", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        movieRepository.insert(Movie.of(0, "Gwiezdny tron9", "someUri", getRandomIds(personIds).stream().map(i -> personRepository.findById(i).get()).collect(Collectors.toList())), 0);
+        setupMoviesUris();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    private void setupMoviesUris() {
+        movieRepository.findAll().forEach(m -> m.setUri(uriProducer.apply(m.getId())));
     }
 
     private long getRandomId(Set<Long> ids, String seed) {
