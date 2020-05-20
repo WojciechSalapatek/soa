@@ -1,0 +1,14 @@
+<!--Tak wygląda plik standalone.xml po skonfigurowaniu ds-->
+<datasource jndi-name="java:/PostgresDS" pool-name="PostgresPool">
+    <connection-url>jdbc:postgresql://localhost:5432/soa?serverTimezone=UTC</connection-url>
+    <driver>postgres</driver>
+    <security>
+        <user-name>postgres</user-name>
+        <password>postgres</password>
+    </security>
+</datasource>
+<drivers>
+<driver name="postgres" module="org.postgres">
+    <driver-class>org.postgresql.Driver</driver-class>
+</driver>
+</drivers>
