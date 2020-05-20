@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="RunServerAndDeployAll" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 10.0.3.Final" ALTERNATIVE_JRE_ENABLED="false">
+  <configuration default="false" name="[lab4] RunServerAndDeployAll" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 10.0.3.Final" ALTERNATIVE_JRE_ENABLED="false">
     <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/four/index.xhtml" />
     <option name="BROWSER_ID" value="3bbecf2b-026f-4e8f-8c71-802f73f89349" />
     <option name="UPDATING_POLICY" value="restart-server" />
