@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</h:head>
+<h:body>
+    <h3>People</h3>
+    <div class="section-border">
+        <h:form>
+            <h:dataTable value="#{PersonView.allPeople}" var="person"
+                         styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{person.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Age</f:facet>
+                    <h:outputText value="#{person.age} "/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Avatar</f:facet>
+                    <o:graphicImage value="#{PersonView.getPersonImage(person.id)}" dataURI="true"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Favourite movies</f:facet>
+                    <h:outputText value="#{person.favouriteMoviesToString()}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:commandButton value="delete" action="#{PersonView.delete(person.id)}" style="color: red;">
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandButton value="update" action="#{PersonUpdateView.startUpdating(person)}"
+                                     style="color: orange;">
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h4>Add a new Person</h4>
+        <h:form enctype="multipart/form-data">
+            <h:dataTable styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <f:facet name="header">
+                        <h:inputText value="#{PersonView.newName}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Age</f:facet>
+                    <f:facet name="header">
+                        <h:inputText value="#{PersonView.newAge}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:inputFile value="#{PersonView.newFile}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:commandButton value="Add" action="#{PersonView.addPerson}" style="color: green;"/>
+                    </f:facet>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+    </div>
+
+    <h3>Movies</h3>
+    <div class="section-border">
+        <h:form>
+            <h:dataTable value="#{MovieView.allMovies}" var="movie"
+                         styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    <h:outputText value="#{movie.title}" style="margin-right: 25px"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Uri</f:facet>
+                    <a href="#{movie.uri}">Click</a>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:commandButton value="delete" action="#{MovieView.delete(movie.id)}" style="color: red;">
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandButton value="update" action="#{MovieUpdateView.startUpdating(movie)}"
+                                     style="color: orange;">
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        <h4>Add a new moview</h4>
+        <h:form>
+            <h:dataTable styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    <f:facet name="header">
+                        <h:inputText value="#{MovieView.newMovie}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:commandButton value="Add" action="#{MovieView.addMovie}" style="color: green;"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandButton value="update" action="#{MovieUpdateView.startUpdating(movie)}"
+                                     style="color: orange;">
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+</h:body>
+
+</html>
