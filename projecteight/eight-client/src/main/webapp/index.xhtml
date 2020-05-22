@@ -5,7 +5,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:o="http://omnifaces.org/ui"
-      xmlns:p="http://primefaces.org/ui"
 >
 
 <h:head>
@@ -68,6 +67,12 @@
                 <h:column>
                     <f:facet name="header">
                         <h:inputFile value="#{PersonView.newFile}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Favourite movies (sepatare by ,)</f:facet>
+                    <f:facet name="header">
+                        <h:inputText id="movies" value="#{PersonView.unparsedMovies}"/>
                     </f:facet>
                 </h:column>
                 <h:column>

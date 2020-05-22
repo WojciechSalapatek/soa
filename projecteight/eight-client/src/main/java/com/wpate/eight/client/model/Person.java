@@ -20,7 +20,11 @@ public class Person {
     private Set<Movie> favouriteMovies = new HashSet<>();
 
     public String favouriteMoviesToString() {
-        return favouriteMovies.stream().map(Movie::getTitle).collect(Collectors.joining(", "));
+        return moviesToString(favouriteMovies);
+    }
+
+    public static String moviesToString(Set<Movie> movies) {
+        return movies.stream().map(Movie::getTitle).collect(Collectors.joining(","));
     }
 
 }

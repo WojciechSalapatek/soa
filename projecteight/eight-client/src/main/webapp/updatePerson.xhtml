@@ -5,7 +5,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:o="http://omnifaces.org/ui"
-      xmlns:p="http://primefaces.org/ui"
 >
 
 <h:head>
@@ -14,36 +13,54 @@
 <h:body>
     <h3>Update Person</h3>
     <div class="section-border">
-    <h:form>
-        <h:dataTable styleClass="table"
-                     headerClass="table-header"
-                     rowClasses="table-odd-row,table-even-row">
-            <h:column>
-                <f:facet name="header">
-                    <h:inputHidden value="#{PersonUpdateView.id}"/>
-                </f:facet>
-                <f:facet name="header">Name</f:facet>
-                <f:facet name="header">
-                    <h:inputText id="name" value="#{PersonUpdateView.name}" required="true"
-                                 requiredMessage="Name is mandatory"/>
-                    <h:message for="name" style="color:red"/>
-                </f:facet>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Age</f:facet>
-                <f:facet name="header">
-                    <h:inputText id="age" value="#{PersonUpdateView.age}" required="true"
-                                 requiredMessage="Age is mandatory"/>
-                    <h:message for="age" style="color:red"/>
-                </f:facet>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:commandButton value="Update" action="#{PersonUpdateView.update}" style="color: orange;"/>
-                </f:facet>
-            </h:column>
-        </h:dataTable>
-    </h:form>
+        <h:form enctype="multipart/form-data">
+            <h:dataTable styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">
+                        <h:inputHidden value="#{PersonUpdateView.id}"/>
+                    </f:facet>
+                    <f:facet name="header">Name</f:facet>
+                    <f:facet name="header">
+                        <h:inputText id="name" value="#{PersonUpdateView.name}" required="true"
+                                     requiredMessage="Name is mandatory"/>
+                        <h:message for="name" style="color:red"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Age</f:facet>
+                    <f:facet name="header">
+                        <h:inputText id="age" value="#{PersonUpdateView.age}" required="true"
+                                     requiredMessage="Age is mandatory"/>
+                        <h:message for="age" style="color:red"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Old Avatar</f:facet>
+                    <f:facet name="header">
+                        <o:graphicImage value="#{PersonView.getPersonImage(PersonUpdateView.id)}" dataURI="true"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">New Avatar</f:facet>
+                    <f:facet name="header">
+                        <h:inputFile value="#{PersonUpdateView.newFile}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Favourite movies (sepatare by ,)</f:facet>
+                    <f:facet name="header">
+                        <h:inputText id="movies" value="#{PersonUpdateView.unparsedMovies}"/>
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:commandButton value="Update" action="#{PersonUpdateView.update}" style="color: orange;"/>
+                    </f:facet>
+                </h:column>
+            </h:dataTable>
+        </h:form>
     </div>
 </h:body>
 

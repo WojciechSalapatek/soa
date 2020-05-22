@@ -1,10 +1,8 @@
 package com.wpate.eight.rest.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.ws.rs.core.StreamingOutput;
@@ -34,6 +32,7 @@ public class Person {
     private int age;
 
     @JsonIgnore
+    @Getter(AccessLevel.NONE)
     @Column(name = "image")
     private byte[] image;
 
@@ -63,6 +62,16 @@ public class Person {
 
     private <T> List<T> createIfNull(List<T> nullableList) {
         return ofNullable(nullableList).orElse(new ArrayList<>());
+    }
+
+    @JsonIgnore
+    public byte[] getImage() {
+        return image;
+    }
+
+    @JsonProperty("image")
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @JsonIgnore
